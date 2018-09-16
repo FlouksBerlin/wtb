@@ -1,11 +1,37 @@
 <template>
-  <tr>
-    <th scope="row">2</th>
-    <td><v-time-picker v-model="timeArrival" scrollable format="24hr"></v-time-picker></td>
-    <td>{{submittableDateTime}}</td>
-    <td>@fat</td>
-    
-  </tr> 
+  <v-layout row wrap>
+    <v-flex xs12 sm4>
+      <v-text-field
+        v-model="message3"
+        box
+        label="Arrival Time"
+        prepend-inner-icon="exit_to_app"
+        clearable
+      >
+        <v-time-picker v-model="timeArrival" scrollable format="24hr"></v-time-picker>
+      </v-text-field>
+    </v-flex>
+    <v-flex xs12 sm4>
+      <v-text-field
+        v-model="timeArrival"
+        box
+        label="Leaving Time"
+        prepend-inner-icon="time_to_leave"
+        clearable
+      >
+      </v-text-field>
+    </v-flex>
+    <v-flex xs12 sm3 offset-sm1 v-if="overTime">
+      <v-text-field
+        v-model="overTime"
+        box
+        disabled
+        label="Overtime"
+        :prepend-inner-icon="overTimeIcon.down"
+      >
+      </v-text-field>
+    </v-flex>
+  </v-layout>
 </template>
 
 
@@ -18,7 +44,12 @@ export default {
     return {
       date: new Date(),
       timeArrival: new Date(),
-      timeLeaving: new Date()  
+      timeLeaving: new Date(),
+      overTime: "- 01:25 h",
+      overTimeIcon: {
+        up: 'trending_up',
+        down: 'trending_down'
+      }
     }
   },
   computed: {

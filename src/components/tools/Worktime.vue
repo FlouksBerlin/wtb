@@ -1,20 +1,22 @@
 <template>
-  <div class="col-8 offset-2">
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Arrival</th>
-          <th scope="col">Leave</th>
-          <th scope="col">Worktime</th>
-        </tr>
-      </thead>
-      <tbody>
-          <app-worktime-slot></app-worktime-slot>
-      </tbody>
-    </table>
-    
-  </div>
+  <v-card class="elevation-4">
+    <v-toolbar dense>
+      <v-toolbar-title>{{Date()}}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>edit</v-icon>
+      </v-btn>
+    </v-toolbar>
+
+    <v-card-text>
+    <v-form>
+      <v-container>
+          <app-worktime-entry></app-worktime-entry>
+        </v-container>
+      </v-form>
+    </v-card-text>
+  </v-card>
+  
 </template>
 
 <script>
@@ -22,7 +24,7 @@ import WorktimeSlot from "./WorktimeEntry.vue";
 
 export default {
   components: {
-    appWorktimeSlot: WorktimeSlot
+    appWorktimeEntry: WorktimeSlot
   }
 };
 </script>
