@@ -6,7 +6,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {
-<<<<<<< HEAD
       id: "opiawdppopgf12",
       name: {
         firstName: "Peter",
@@ -25,12 +24,20 @@ export default new Vuex.Store({
         timeLeaving: new Date()
       }
     ]
-=======
-      id: "opiawdppopgf12"
-    }
->>>>>>> master
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    createTimeEntry(state, payload) {
+      state.timeEntries.push(payload);
+    }
+  },
+  actions: {
+    createTimeEntry({ commit }, payload) {
+      const timeEntry = {
+        timeArrival: payload.timeArrival,
+        timeLeaving: payload.timeLeaving
+      };
+      commit("createTimeEntry", timeEntry);
+    }
+  },
   getters: {}
 });

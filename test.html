@@ -1,0 +1,23 @@
+<template>
+	<v-container>
+		<v-flex xs8>
+			<worktime-entry v-for="worktimeEntry in worktimeEntries" :worktimeEntry="worktimeEntry" :key="worktimeEntry.id"></worktime-entry>
+			<v-divider class="my-5"></v-divider>
+			<h1 v-if="newTimeEntry">TEXT</h1>
+			<v-layout row v-else>
+				<v-card class="elevation-4">
+					<v-card-text>
+						<v-container>
+							<v-layout row wrap>
+								<v-flex 12>
+									<v-text-field></v-text-field>
+									textawesfagfawgawhgawghawh
+								</v-flex>
+							</v-layout>
+						</v-container>
+					</v-card-text>
+				</v-card>
+			</v-layout>
+		</v-flex>
+	</v-container>
+</template>
