@@ -1,53 +1,56 @@
 <template>
-<v-card class="elevation-4">
-    <v-toolbar dense>
-      <v-toolbar-title>{{i = new Date(2018, 11, 12)}}</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>edit</v-icon>
-      </v-btn>
-    </v-toolbar>
-
-    <v-card-text>
-    <v-form>
-      <v-container>
-  <v-layout row wrap>
-    <v-flex xs12 sm4>
-      <v-text-field
-        v-model="timeArrival"
-        box
-        label="Arrival Time"
-        prepend-inner-icon="exit_to_app"
-        clearable
-      >
-        <v-time-picker v-model="timeArrival" scrollable format="24hr"></v-time-picker>
-      </v-text-field>
-    </v-flex>
-    <v-flex xs12 sm4>
-      <v-text-field
-        v-model="timeLeaving"
-        box
-        label="Leaving Time"
-        prepend-inner-icon="time_to_leave"
-        clearable
-      >
-      </v-text-field>
-    </v-flex>
-    <v-flex xs12 sm3 offset-sm1 v-if="overTime">
-      <v-text-field
-        v-model="overTime"
-        box
-        disabled
-        label="Overtime"
-        :prepend-inner-icon="overTimeIcon.down"
-      >
-      </v-text-field>
-    </v-flex>
+<v-container>
+  <v-layout row wrap v-for="worktimeEntry in worktimeEntries" :key="worktimeEntry.id" class="mb-3">
+    <v-card class="elevation-4">
+      <v-toolbar dense>
+        <v-toolbar-title>{{worktimeEntry.timeArrival}}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn icon>
+          <v-icon>edit</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <v-card-text>
+        <v-form>
+          <v-container>
+            <v-layout row wrap>
+              <v-flex xs12 sm4>
+                <v-text-field
+                  v-model="worktimeEntry.timeArrival"
+                  box
+                  label="Arrival Time"
+                  prepend-inner-icon="exit_to_app"
+                  clearable
+                >
+                  <v-time-picker v-model="worktimeEntry.timeArrival" scrollable format="24hr"></v-time-picker>
+                </v-text-field>
+              </v-flex>
+              <v-flex xs12 sm4>
+                <v-text-field
+                  v-model="worktimeEntry.timeLeaving"
+                  box
+                  label="Leaving Time"
+                  prepend-inner-icon="time_to_leave"
+                  clearable
+                >
+                </v-text-field>
+              </v-flex>
+              <v-flex xs12 sm3 offset-sm1 >
+                <v-text-field
+                  v-model="overTime"
+                  box
+                  disabled
+                  label="Overtime"
+                  :prepend-inner-icon="overTimeIcon.down"
+                >
+              </v-text-field>
+            </v-flex>
+          </v-layout>
+          </v-container>
+        </v-form>
+      </v-card-text>
+    </v-card>
   </v-layout>
-  </v-container>
-      </v-form>
-    </v-card-text>
-      </v-card>
+</v-container>
 </template>
 
 
@@ -58,9 +61,10 @@ export default {
   },
   data() {
     return {
-      timeArrival: new Date(),
-      timeLeaving: new Date(),
-      overTime: "- 01:25 h",
+      worktimeEntries:[
+        {id: "ajskdu1", timeArrival: new Date(), timeLeaving: new Date(+1549754588884)},
+        {id: "pawl827", timeArrival: new Date(), timeLeaving: new Date(+1599754588884)}
+      ],
       overTimeIcon: {
         up: 'trending_up',
         down: 'trending_down'
@@ -68,6 +72,9 @@ export default {
     }
   },
   computed: {
+    overTime() {
+      return Date(Math.abs(this.timeLeaving - this.timeArrival));
+    },
     submittableDateTime(){
       const DATE = new Date(this.date);
       DATE.setHours(this.timeArrival.getHours());
