@@ -1,88 +1,59 @@
 <template>
-<v-card class="elevation-4">
-    <v-toolbar dense>
-      <v-toolbar-title>{{i = new Date(2018, 11, 12)}}</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>edit</v-icon>
-      </v-btn>
-    </v-toolbar>
+			<v-card class="elevation-2 mt-5">
+				<v-toolbar color="green lighten-1" dense>
+					<v-toolbar-title>{{worktimeEntry.timeArrival}}</v-toolbar-title>
+					<v-spacer></v-spacer>
+					<v-btn icon>
+						<v-icon>edit</v-icon>
+					</v-btn>
+					<v-btn icon>
+						<v-icon>delete</v-icon>
+					</v-btn>
+				</v-toolbar>
+				<v-card-text>
+					<v-form>
+						<v-container>
+							<v-layout>
+								<v-flex xs12 sm4>
+									<v-text-field v-model="worktimeEntry.timeArrival" box label="Arrival Time" prepend-inner-icon="exit_to_app" clearable>
+										<v-time-picker v-model="worktimeEntry.timeArrival" scrollable format="24hr"></v-time-picker>
+									</v-text-field>
+								</v-flex>
+								<v-flex xs12 sm4>
+									<v-text-field v-model="worktimeEntry.timeLeaving" box label="Leaving Time" prepend-inner-icon="time_to_leave" clearable>
+									</v-text-field>
+								</v-flex>
+								<v-flex xs12 sm3 offset-sm1>
+									<v-text-field v-model="worktimeEntry.overtime" box disabled label="Overtime" :prepend-inner-icon="overtimeIcon">
+									</v-text-field>
+								</v-flex>
+							</v-layout>
+						</v-container>
+					</v-form>
+				</v-card-text>
+			</v-card>
 
-    <v-card-text>
-    <v-form>
-      <v-container>
-  <v-layout row wrap>
-    <v-flex xs12 sm4>
-      <v-text-field
-        v-model="timeArrival"
-        box
-        label="Arrival Time"
-        prepend-inner-icon="exit_to_app"
-        clearable
-      >
-        <v-time-picker v-model="timeArrival" scrollable format="24hr"></v-time-picker>
-      </v-text-field>
-    </v-flex>
-    <v-flex xs12 sm4>
-      <v-text-field
-        v-model="timeLeaving"
-        box
-        label="Leaving Time"
-        prepend-inner-icon="time_to_leave"
-        clearable
-      >
-      </v-text-field>
-    </v-flex>
-    <v-flex xs12 sm3 offset-sm1 v-if="overTime">
-      <v-text-field
-        v-model="overTime"
-        box
-        disabled
-        label="Overtime"
-        :prepend-inner-icon="overTimeIcon.down"
-      >
-      </v-text-field>
-    </v-flex>
-  </v-layout>
-  </v-container>
-      </v-form>
-    </v-card-text>
-      </v-card>
 </template>
 
 
 <script>
-
 export default {
-  components: {
-  },
+  props: ["worktimeEntry"],
   data() {
-    return {
-      timeArrival: new Date(),
-      timeLeaving: new Date(),
-      overTime: "- 01:25 h",
-      overTimeIcon: {
-        up: 'trending_up',
-        down: 'trending_down'
-      }
-    }
+    return {};
   },
   computed: {
-    submittableDateTime(){
-      const DATE = new Date(this.date);
-      DATE.setHours(this.timeArrival.getHours());
-      DATE.setMinutes(this.timeArrival.getMinutes());
-      console.log(DATE);
-      return DATE;
-    }
-  },
-  methods: {
-    CalcWT() {
-      alert(this.timeArrival.HH + ":" + this.timeArrival.mm);
+    overtimeIcon() {
+      if (this.worktimeEntry.overtime > 0) {
+        return "trending_up";
+      } else {
+        return "trending_down";
+      }
     }
   }
 };
 </script>
+
 
 
 <style>
