@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {
+<<<<<<< HEAD
       id: "opiawdppopgf12",
       name: {
         firstName: "Peter",
@@ -24,6 +25,10 @@ export default new Vuex.Store({
         timeLeaving: new Date()
       }
     ]
+=======
+      id: "opiawdppopgf12"
+    }
+>>>>>>> master
   },
   mutations: {},
   actions: {},
