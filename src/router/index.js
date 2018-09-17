@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "@/components/Home";
 import Tools from "@/components/Tools";
-import Worktime from "@/components/tools/Worktime";
+import WorktimeEntries from "@/components/tools/WorktimeEntries";
 
 Vue.use(Router);
 
@@ -13,7 +13,7 @@ export default new Router({
     {
       path: "/tools",
       component: Tools,
-      children: [{ path: "worktime", component: Worktime }]
+      children: [{ path: "worktime", component: WorktimeEntries }]
     }
   ]
 });
