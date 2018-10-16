@@ -65,6 +65,9 @@
       prepend-inner-icon="search"
     ></v-text-field>
     <v-spacer></v-spacer>
+    <span class="" style="cursor: pointer">
+      {{ userIsAuthenticated }} <span v-if="userIsAuthenticated" @click="signOut"> | {{ user.id.substr(0,5) }} | {{user.username}} </span>
+    </span>
   </v-toolbar>
   </div>
 </template>
@@ -75,14 +78,15 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { icon: "lightbulb_outline", text: "Notes" },
+      { icon: "lightbulb_outline", text: "Notes", path: '/tools/notes' },
       { icon: "access_alarm", text: "Worktime", path: '/tools/worktime' },
       { divider: true },
       { heading: "Labels" },
       { icon: "add", text: "Create new label" },
       { divider: true },
-      { icon: "archive", text: "Archive" },
-      { icon: "delete", text: "Trash" },
+      { icon: "lock_open", text: "Login", path: '/signin' },
+      { icon: "mdi-account-plus", text: "Sign Up", path: '/signup' },
+      { icon: "mdi-logout", text: "Sign Out", method: 'singOut()' },
       { divider: true },
       { icon: "settings", text: "Settings" },
       { icon: "chat_bubble", text: "Trash" },
@@ -94,6 +98,14 @@ export default {
   props: {
     source: String
   },
+  computed: {
+    userIsAuthenticated() {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    },
+    user() {
+      return this.$store.getters.user;
+    }
+  },
   methods: {
     navigateTo(path) {
       if (path) {
@@ -101,6 +113,9 @@ export default {
       } else {
         this.$router.push('/');
       }
+    },
+    signOut(){
+      this.$store.dispatch('signOut');
     }
   }
 };
