@@ -1,12 +1,12 @@
 <template>
-  <v-app id="keep app">
-    <navbar></navbar>
-    <v-content>
-      <v-container fluid class="grey lighten-4">
-        <router-view></router-view>
-      </v-container>
-    </v-content>
-  </v-app>
+    <v-app id="keep app">
+      <navbar></navbar>
+      <v-content>
+        <v-container fluid class="grey lighten-4">
+          <router-view></router-view>
+        </v-container>
+      </v-content>      
+    </v-app>  
 </template>
 
 <script>
@@ -16,6 +16,11 @@ export default {
   name: "App",
   components: {
     Navbar
+  },
+  computed: {
+    userIsAuthenticated() {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    }
   }
 };
 </script>
