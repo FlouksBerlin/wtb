@@ -11,6 +11,9 @@ import theme from './assets/style';
 import { router } from './router';
 import { store } from './store';
 
+import AlertComp from '@/components/Shared/Alert';
+Vue.component('app-alert', AlertComp);
+
 Vue.use(Vuetify, { theme });
 
 Vue.config.productionTip = false;
@@ -31,13 +34,13 @@ new Vue({
       storageBucket: 'worktoolbox-c5ede.appspot.com'
     });
     firebase.auth().onAuthStateChanged(user => {
+      this.$store.commit('setLoading', true);
+      console.log('onAuthStateChanged', user);
       if (user) {
-        console.log(user);
         this.$store.dispatch('autoSignIn', user);
         this.$store.dispatch('fetchUserData');
-      } else {
-        console.log('notwell');
       }
+      this.$store.commit('setLoading', false);
     });
   }
 });

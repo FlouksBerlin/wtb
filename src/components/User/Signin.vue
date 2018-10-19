@@ -1,6 +1,6 @@
 <template>
 	<v-container>
-		<v-layout row>
+		<v-layout row wrap>
 			<v-flex xs12 sm6 offset-sm3>
 				<v-card>
 					<v-toolbar color="primary" dark>
@@ -30,6 +30,12 @@
 				</v-card>
 			</v-flex>
 		</v-layout>
+
+		<v-layout row mt-3 v-if="error">
+			<v-flex xs12 sm6 offset-sm3>
+				<app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+			</v-flex>
+		</v-layout> 
 	</v-container>
 </template>
 
@@ -44,7 +50,15 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user;
-    }
+    },
+
+		loading() {
+			return this.$store.getters.loading
+		},
+
+		error(){
+			return this.$store.getters.error
+		}
   },
   watch: {
     user(value) {
@@ -59,7 +73,11 @@ export default {
         email: this.email,
         password: this.password
       });
-    }
+    },
+
+		onDismissed() {
+			this.$store.dispatch('clearError')
+		}
   }
 };
 </script>

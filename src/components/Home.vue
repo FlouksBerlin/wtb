@@ -1,5 +1,11 @@
 <template>
-<div>welcome to mfb wtb</div>
+  <v-container>
+    <v-layout row wrap>
+      <v-flex xs12>
+        welcome to mfb wtb
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 
