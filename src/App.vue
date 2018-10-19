@@ -1,10 +1,8 @@
 <template>
-    <v-app id="keep app">
+    <v-app id="keep app" class="grey lighten-4">
       <navbar></navbar>
       <v-content>
-        <v-container fluid class="grey lighten-4">
           <router-view></router-view>
-        </v-container>
       </v-content>      
     </v-app>  
 </template>
