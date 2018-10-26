@@ -80,6 +80,7 @@ export default {
     items: [
       { icon: "lightbulb_outline", text: "Notes", path: '/tools/notes' },
       { icon: "access_alarm", text: "Worktime", path: '/tools/worktime' },
+      { icon: "access_alarm", text: "Time Tracker", path: '/tools/timeentries' },
       { divider: true },
       { heading: "Labels" },
       { icon: "add", text: "Create new label" },
