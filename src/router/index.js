@@ -10,6 +10,7 @@ import Profile from '@/components/User/Profile';
 import Tools from '@/components/Tools';
 import WorktimeEntries from '@/components/tools/WorktimeEntries';
 import Notes from '@/components/tools/Notes';
+import TimeEntries from '@/components/tools/TimeEntries';
 
 Vue.use(Router);
 
@@ -36,8 +37,9 @@ export const router = new Router({
       path: '/tools',
       component: Tools,
       children: [
+        { path: 'notes', component: Notes },
         { path: 'worktime', component: WorktimeEntries },
-        { path: 'notes', component: Notes }
+        { path: 'timeentries', component: TimeEntries }
       ]
     }
   ]

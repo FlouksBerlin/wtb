@@ -15,9 +15,12 @@
 						<v-container>
 							<v-layout>
 								<v-flex xs12 sm4>
-									<v-text-field v-model="worktimeEntry.timeArrival" box label="Arrival Time" prepend-inner-icon="exit_to_app" clearable>
-										<v-time-picker v-model="worktimeEntry.timeArrival" scrollable format="24hr"></v-time-picker>
-									</v-text-field>
+                    <v-menu ref="menuAT" :close-on-content-click="false" v-model="menuAT" :nudge-right="40" :return-value.sync="mytime" lazy transition="scale-transition"
+                    offset-y full-width max-width="290px" min-width="290px">
+                      <v-text-field slot="activator" v-model="mytime" label="Arrival Time" prepend-inner-icon="access_time"
+                      color="green" box readonly></v-text-field>
+                      <v-time-picker v-if="menuAT" v-model="mytime" @change="$refs.menuAT.save(mytime)" format="24hr" color="green"></v-time-picker>
+                    </v-menu>
 								</v-flex>
 								<v-flex xs12 sm4>
 									<v-text-field v-model="worktimeEntry.timeLeaving" box label="Leaving Time" prepend-inner-icon="time_to_leave" clearable>
@@ -40,7 +43,12 @@
 export default {
   props: ["worktimeEntry"],
   data() {
-    return {};
+    return {
+      menuAT: false,
+      timeAT: null,
+      menuLT: false,
+      timeLT: null
+    };
   },
   computed: {
     overtimeIcon() {
