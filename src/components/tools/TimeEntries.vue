@@ -96,6 +96,9 @@ export default {
 				timeLeaving: this.submittableTime(this.newTimeEntry.timeLeaving),
 				comment: this.newTimeEntry.comment
 			}
+
+			this.$store.dispatch('createTimeEntry', submittableTimeEntry)
+
       console.log(submittableTimeEntry);
       this.timeEntries.push(submittableTimeEntry);
       this.newTimeEntry = {};
@@ -109,10 +112,22 @@ export default {
       return date;
     },
 		overtime(entry) {
-			// return entry.timeLeaving - entry.timeArrival
-			var diff = this.$moment(entry.timeLeaving).unix() - this.$moment(entry.timeArrival).unix()
-			return this.$moment.utc(diff)
+			var diff = entry.timeLeaving - entry.timeArrival
+			return this.msToTime(diff)
 		},
+		msToTime( ms ) {
+			// 1- Convert to seconds:
+			var seconds = ms / 1000;
+			// 2- Extract hours:
+			var hours = parseInt( seconds / 3600, 10 ); // 3,600 seconds in 1 hour
+			seconds = seconds % 3600; // seconds remaining after extracting hours
+			// 3- Extract minutes:
+			var minutes = parseInt( seconds / 60, 10 ); // 60 seconds in 1 minute
+			// 4- Keep only seconds not extracted to minutes:
+			seconds = Math.round(seconds % 60);
+			return hours+":"+minutes+":"+seconds
+			//alert( hours+":"+minutes+":"+seconds);
+		}
   }
 };
 </script>

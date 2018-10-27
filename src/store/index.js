@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
     },
 
     createTimeEntry(state, payload) {
-      state.timeEntries.push(payload);
+      state.user.timeEntries = payload;
     },
 
     setLoading(state, payload) {
@@ -134,11 +134,7 @@ export const store = new Vuex.Store({
     },
 
     createTimeEntry({ commit }, payload) {
-      const timeEntry = {
-        timeArrival: payload.timeArrival,
-        timeLeaving: payload.timeLeaving
-      };
-      commit('createTimeEntry', timeEntry);
+      commit('createTimeEntry', payload);
     },
 
     clearError({ commit }) {
