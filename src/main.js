@@ -7,6 +7,8 @@ import * as firebase from 'firebase';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.css';
 import theme from './assets/style';
+import Moment from 'vue-moment';
+import momentlocale from 'moment/locale/de';
 
 import { router } from './router';
 import { store } from './store';
@@ -15,6 +17,7 @@ import AlertComp from '@/components/Shared/Alert';
 Vue.component('app-alert', AlertComp);
 
 Vue.use(Vuetify, { theme });
+Vue.use(Moment, momentlocale);
 
 Vue.config.productionTip = false;
 
