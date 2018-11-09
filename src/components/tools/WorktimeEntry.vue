@@ -1,5 +1,5 @@
 <template>
-			<v-card class="elevation-2 mt-5">
+			<v-card class="elevation-2 mt-4 worktimeEntry">
 				<v-toolbar color="green lighten-1" dense>
 					<v-toolbar-title>{{worktimeEntry.timeArrival}}</v-toolbar-title>
 					<v-spacer></v-spacer>
@@ -15,16 +15,20 @@
 						<v-container>
 							<v-layout>
 								<v-flex xs12 sm4>
-                    <v-menu ref="menuAT" :close-on-content-click="false" v-model="menuAT" :nudge-right="40" :return-value.sync="mytime" lazy transition="scale-transition"
+                    <v-menu ref="menuAT" :close-on-content-click="false" v-model="menuAT" :nudge-right="40" :return-value.sync="timeAT" lazy transition="scale-transition"
                     offset-y full-width max-width="290px" min-width="290px">
-                      <v-text-field slot="activator" v-model="mytime" label="Arrival Time" prepend-inner-icon="access_time"
-                      color="green" box readonly></v-text-field>
-                      <v-time-picker v-if="menuAT" v-model="mytime" @change="$refs.menuAT.save(mytime)" format="24hr" color="green"></v-time-picker>
+                      <v-text-field slot="activator" v-model="timeAT" label="Arrival Time" prepend-inner-icon="access_time"
+                      color="green" box readonly clearable></v-text-field>
+                      <v-time-picker v-if="menuAT" v-model="timeAT" @change="$refs.menuAT.save(timeAT)" format="24hr" color="green"></v-time-picker>
                     </v-menu>
 								</v-flex>
 								<v-flex xs12 sm4>
-									<v-text-field v-model="worktimeEntry.timeLeaving" box label="Leaving Time" prepend-inner-icon="time_to_leave" clearable>
-									</v-text-field>
+                    <v-menu ref="menuLT" :close-on-content-click="false" v-model="menuLT" :nudge-right="40" :return-value.sync="timeLT" lazy transition="scale-transition"
+                    offset-y full-width max-width="290px" min-width="290px">
+                      <v-text-field slot="activator" v-model="timeLT" label="Arrival Time" prepend-inner-icon="access_time"
+                      color="green" box readonly clearable></v-text-field>
+                      <v-time-picker v-if="menuLT" v-model="timeLT" @change="$refs.menuLT.save(timeLT)" format="24hr" color="green"></v-time-picker>
+                    </v-menu>
 								</v-flex>
 								<v-flex xs12 sm3 offset-sm1>
 									<v-text-field v-model="worktimeEntry.overtime" box disabled label="Overtime" :prepend-inner-icon="overtimeIcon">
@@ -65,6 +69,9 @@ export default {
 
 
 <style>
+.worktimeEntry .v-form > .container {
+	margin-bottom: -30px;
+}
 .time-picker {
   display: inline-block;
   position: relative;
