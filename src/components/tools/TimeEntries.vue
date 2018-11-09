@@ -20,8 +20,6 @@
                     transition="scale-transition"
                     offset-y
                     full-width
-                    min="5"
-                    max="11"
                     max-width="290px"
                     min-width="290px"
                   >
@@ -153,6 +151,7 @@ import { workTimeMixin } from '@/mixins/workTime';
 
 export default {
   mixins: [workTimeMixin],
+
   data() {
     return {
       menuAT: false,
@@ -192,6 +191,7 @@ export default {
           leavingTime: 13.79, //14:11
           targetTime: 8,
           id: '19 Fr'
+
         },
         {
           arrivalTime: 8.15, //8:32
@@ -202,6 +202,7 @@ export default {
       ]
     };
   },
+
   computed: {},
   methods: {
     saveEntry() {
@@ -213,6 +214,7 @@ export default {
       };
 
       //this.$store.dispatch('createTimeEntry', submittableTimeEntry);
+
 
       console.log(submittableTimeEntry);
       this.timeEntries.push(submittableTimeEntry);
@@ -230,6 +232,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 .listcontainer .row {
