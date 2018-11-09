@@ -1,70 +1,83 @@
+
 <template>
-  <v-layout row>
-    <v-flex xs12 sm6 offset-sm3>
-      <v-card>
-        <v-toolbar color="green lighten-1" dense>
-					<v-toolbar-title>New Time-Entry</v-toolbar-title>
-				</v-toolbar>
-
-        <v-card-text primary-title>
-        <v-form>
-          <v-layout>
-            <v-flex xs4 mx-2>
-              <v-text-field box prepend-inner-icon="access_time" clearable></v-text-field>
-            </v-flex>
-            <v-flex xs4 mx-2>
-              <v-text-field box prepend-inner-icon="access_time" clearable></v-text-field>
-            </v-flex>
-            <v-flex xs4 mx-2>
-              <v-text-field box prepend-inner-icon="access_time" clearable></v-text-field>
-            </v-flex>
-          </v-layout>
-          </v-form>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-btn flat>Share</v-btn>
-          <v-btn flat color="purple">Explore</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn icon @click="show = !show">
-            <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <v-container>
+    <v-data-table
+      :headers="headers"
+      :items="worktimes"
+      hide-actions
+      disable-initial-sort
+      class="elevation-1"
+    >
+      <template slot="items" slot-scope="props">
+        <td>{{ props.item.date }}</td>
+        <td class="text-xs-right">{{ props.item.arrivalTime }}</td>
+        <td class="text-xs-right">{{ props.item.leavingTime }}</td>
+        <td class="text-xs-right">{{ props.item.actualTime }}</td>
+        <td class="text-xs-right">{{ props.item.break }}</td>
+        <td class="text-xs-right">{{ props.item.actualNettoTime }}</td>
+        <td class="text-xs-right">{{ props.item.targetTime }}</td>
+        <td class="text-xs-right">
+        <v-icon
+            small
+            class="mr-2"
+            :color="props.item.overtime[0] === '+' || props.item.overtime[0] !== '-' ? 'green' : 'red'"
+          >
+            {{ props.item.overtime[0] === '+' || props.item.overtime[0] !== '-' ? 'trending_up' : 'trending_down' }}
+          </v-icon>
+          {{ props.item.overtime }}
+        </td>
+      </template>
+    </v-data-table>
+  </v-container>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      newTimeEntry: null,
-      worktimeEntries: [
-        {
-          id: 'ajskdu1',
-          timeArrival: 1540537078598,
-          timeLeaving: 1540558550956,
-          overtime: -1
-        },
-        {
-          id: 'pawl827',
-          timeArrival: 1540446935947,
-          timeLeaving: 1540475109726,
-          overtime: +2
-        }
-      ],
-      overTimeIcon: {
-        up: 'trending_up',
-        down: 'trending_down'
+  export default {
+    data () {
+      return {
+        headers: [
+          { text: 'Datum', value: 'date'},
+          { text: 'Arrival', align: 'right', sortable: false, value: 'arrivalTime' },
+          { text: 'Leaving', align: 'right', sortable: false, value: 'leavingTime' },
+          { text: 'Actual', align: 'right', sortable: false, value: 'actualTime' },
+          { text: 'Break', align: 'right', sortable: false, value: 'break' },
+          { text: 'Actual (Netto)', align: 'right', sortable: false, value: 'actualNettoTime' },
+          { text: 'Target', align: 'right', sortable: false, value: 'targetTime' },
+          { text: 'Overtime', align: 'right', sortable: false, value: 'overtime' }
+        ],
+        worktimes: [
+          {
+            date: '29.10.2018',
+            arrivalTime: '9:00',
+            leavingTime: '17:30',
+            actualTime: '8:30',
+            break: '0:45',
+            actualNettoTime: '7:45',
+            targetTime: '8:00',
+            overtime: '-00:15'
+          },
+          {
+            date: '24.10.2018',
+            arrivalTime: '7:55',
+            leavingTime: '16:00',
+            actualTime: '8:05',
+            break: '0:45',
+            actualNettoTime: '7:20',
+            targetTime: '8:00',
+            overtime: '-00:40'
+          },
+          {
+            date: '20.10.2018',
+            arrivalTime: '8:00',
+            leavingTime: '17:45',
+            actualTime: '9:59',
+            break: '0:45',
+            actualNettoTime: '9:14',
+            targetTime: '8:00',
+            overtime: '+01:14'
+          }
+        ]
       }
-    };
+    }
   }
-};
 </script>
-
-<style>
-th {
-  width: 200px;
-}
-</style>
